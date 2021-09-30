@@ -3,24 +3,22 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const mongoose  = require('mongoose')
-const handleBooks = require('./books')
-
-const axios = require('axios');
-
 const server = express();
+const PORT = process.env.PORT;
+const handleBooks = require('./components/books')
+const addBooksHandler = require('./components/addBook')
+server.use(express.json());
+
 server.use(cors());
 
-const PORT = process.env.PORT;
 
 //mangoose connected to the port 27017 *do not change* test is the data base name we have to change it to the name we have
-mongoose.connect('mongodb://localhost:27017/BookData');
 
 
 // Routes
 server.get('/', homeRouteHandler);
-server.get('/myBooks',handleBooks);
-
+server.get('/books', handleBooks);
+server.post('/addBooks', addBooksHandler);
 server.get('*', notFoundHandler);
 ///////////////
 
