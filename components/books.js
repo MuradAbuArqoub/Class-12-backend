@@ -1,32 +1,39 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/booksapi');
-const booksModel = require('./model')
+
+const BookSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    status: String,
+    email: String
+  });
+
+const booksModel = mongoose.model('Book', BookSchema);
+
 
 function seedBookInformation(){
-const user = new booksModel({
+const alchimest = new booksModel({
     title: 'alchimest',
-    description: 'very nice',
-    status: 'String',
+    description: 'a traveler trying to find a hidden trisure but the tresure is ...',
+    status: 'something something',
+    email: 'muradaboarkob2000@gmail.com'
+})
+const alice = new booksModel({
+    title: 'alice',
+    description: 'lost in a woderland full of misterry and wonders ...',
+    status: 'something something',
     email: 'murad@gmail.com'
 })
+const harrypotter = new booksModel({
+    title: 'harrypotter',
+    description: 'a world full of magic and wonders, wizerds learn how to become ...',
+    status: 'something something',
+    email: 'notMurad@gmail.com'
+})
 
-user.save();
+alchimest.save();
+alice.save();
+harrypotter.save();
 }
+// seedBookInformation();
 
-// seedBookInformation()
-
-// module.exports = booksModel
-
-// http://localhost:3001/books?email=murad@gmail.com
-function handleBooks(req, res) {
-    let email = req.query.email
-    booksModel.find({ email }, function (error, data) {
-        if (error) {
-            res.send('Error in getting data')
-        } else {
-            res.send(data)
-        }
-    })
-}
-
-module.exports = handleBooks;
+module.exports = booksModel;
