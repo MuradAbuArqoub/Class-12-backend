@@ -9,10 +9,10 @@ server.use(express.json());
 server.use(cors());
 
 const PORT = process.env.PORT;
-
+server.use(express.json());
 mongoose.connect('mongodb://localhost:27017/BookData');
 
-const {getBookHandler, createBookHandler} = require('./components/bookHandler');
+const {getBookHandler, createBookHandler,deleteBookHandler,UpdateBookHandler} = require('./components/bookHandler');
 
 //mangoose connected to the port 27017 *do not change* test is the data base name we have to change it to the name we have
 
@@ -21,6 +21,10 @@ const {getBookHandler, createBookHandler} = require('./components/bookHandler');
 server.get('/', homeRouteHandler);
 server.get('/getBook', getBookHandler);
 server.post('/createBook', createBookHandler);
+server.delete('/deleteBook',deleteBookHandler);
+server.put('/updateBook',UpdateBookHandler);
+
+
 
 server.get('*', notFoundHandler);
 ///////////////
